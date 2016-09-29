@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+                           
+       default-init-method="initialize"
+       default-destroy-method="destroy">
+
+    <!-- Configure the Twitter integration details here including:
+         - Twitter OAuth consumer key
+         - Twitter OAuth consumer secret
+         -->
+    <bean id="TwitterIntegration"
+        class="org.mla.cbox.shibboleth.idp.authn.impl.TwitterIntegration"
+        p:oauthConsumerKey="YOUR CONSUMER KEY HERE"
+        p:oauthConsumerSecret="YOUR CONSUMER SECRET HERE"
+        />
+
+    <!-- You should not need to edit these bean definitions -->
+    <bean id="InitializeTwitterContext"
+        class="org.mla.cbox.shibboleth.idp.authn.impl.InitializeTwitterContext"
+        scope="prototype"
+        p:twitterIntegration-ref="TwitterIntegration"
+        />
+
+    <bean id="ProcessRedirectFromTwitter"
+        class="org.mla.cbox.shibboleth.idp.authn.impl.ProcessRedirectFromTwitter"
+        scope="prototype"
+        p:httpServletRequest-ref="shibboleth.HttpServletRequest"
+        />
+
+</beans>

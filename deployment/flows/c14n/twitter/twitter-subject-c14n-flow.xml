@@ -1,0 +1,20 @@
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow.xsd"
+      parent="c14n.abstract">
+
+    <!-- This is a one-step subflow that does Subject Canonicalization using 
+         the Twitter subject canonicalization. At this time there is
+         no implemented canonicalization and the Twitter asserted user identifier
+         value is passed through as the principal. -->
+    
+    <action-state id="TwitterSubjectCanonicalization">
+        <evaluate expression="TwitterSubjectCanonicalization" />
+        <evaluate expression="'proceed'" />
+        
+        <transition on="proceed" to="proceed" />
+    </action-state>
+
+    <bean-import resource="twitter-subject-c14n-beans.xml" />
+
+</flow>

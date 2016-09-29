@@ -1,0 +1,34 @@
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow.xsd"
+      parent="authn.abstract, authn/conditions">
+
+    <!-- Redirect the browser to the Twitter authentication page. 
+         The query string includes the Twitter Oauth request token.
+         -->
+    <view-state id="RedirectToTwitter" view="externalRedirect:#{twitterContext.twitterLoginUrl()}">
+        <on-render>
+            <!-- Create the initial Twitter context and obtain a request token. In the call
+                 to Twitter to obtain the request token include the callback URL for this
+                 flow computed from the Spring WebFlow flowExecutionUrl. -->
+            <evaluate expression="InitializeTwitterContext"/>
+            <evaluate expression="opensamlProfileRequestContext" result="flowScope.profileRequestContext" />
+            <evaluate expression="opensamlProfileRequestContext.getSubcontext(T(net.shibboleth.idp.authn.context.AuthenticationContext))" result="flowScope.authenticationContext" />
+            <evaluate expression="authenticationContext.getSubcontext(T(org.mla.cbox.shibboleth.idp.authn.impl.TwitterContext))" result="flowScope.twitterContext" />
+        </on-render>
+        <transition on="proceed" to="ProcessRedirectFromTwitter" />
+    </view-state>
+
+    <!-- Process the return from Twitter by consuming the access token
+         with the user ID.
+         -->
+    <action-state id="ProcessRedirectFromTwitter">
+        <evaluate expression="ProcessRedirectFromTwitter" />
+        <evaluate expression="'proceed'" />
+
+        <transition on="proceed" to="proceed" />
+    </action-state>
+
+    <bean-import resource="twitter-authn-beans.xml" />
+
+</flow>
