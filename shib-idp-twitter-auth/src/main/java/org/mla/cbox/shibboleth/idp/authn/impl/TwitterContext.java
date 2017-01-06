@@ -1,3 +1,16 @@
+/*
+* Copyright (C) 2017 Modern Language Association
+*
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+* except in compliance with the License. You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software distributed under
+* the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 package org.mla.cbox.shibboleth.idp.authn.impl;
 
 
@@ -16,24 +29,24 @@ import twitter4j.auth.RequestToken;
  */
 public class TwitterContext extends BaseContext {
     /** Twitter integration details */
-	@Nullable private TwitterIntegration twitterIntegration = null;
+    @Nullable private TwitterIntegration twitterIntegration = null;
     
-	/** Twitter factory instance */
-	@Nullable private Twitter twitter = null;
+    /** Twitter factory instance */
+    @Nullable private Twitter twitter = null;
     
-	/** Twitter access token */
-	@Nullable private AccessToken accessToken = null;
+    /** Twitter access token */
+    @Nullable private AccessToken accessToken = null;
     
-	/** Twitter request token */
-	@Nullable private RequestToken requestToken = null;
+    /** Twitter request token */
+    @Nullable private RequestToken requestToken = null;
     
-	/** Class logger */
+    /** Class logger */
     @Nonnull private final Logger log = LoggerFactory.getLogger(TwitterContext.class);
     
     /** Log prefix */
     @Nonnull private final String logPrefix = getClass().getSimpleName() + ":";
     
-	/** Constructor */
+    /** Constructor */
     public TwitterContext() {
     }
     
@@ -43,7 +56,7 @@ public class TwitterContext extends BaseContext {
      * @return the Twitter access token
      */
     @Nullable public AccessToken getAccessToken() {
-    	return this.accessToken;
+        return this.accessToken;
     }
     
     /**
@@ -52,7 +65,7 @@ public class TwitterContext extends BaseContext {
      * @return the Twitter request token
      */
     @Nullable public RequestToken getRequestToken() {
-    	return this.requestToken;
+        return this.requestToken;
     }
     
     /**
@@ -61,7 +74,7 @@ public class TwitterContext extends BaseContext {
      * @return the Twitter class instance
      */
     @Nullable public Twitter getTwitter() {
-    	return this.twitter;
+        return this.twitter;
     }
     
     /**
@@ -70,9 +83,9 @@ public class TwitterContext extends BaseContext {
      * @return the Twitter integration object
      */
     @Nullable public TwitterIntegration getTwitterIntegration() {
-    	return this.twitterIntegration;
+        return this.twitterIntegration;
     }
-	
+    
      
      /**
       * Compute the Twitter OAuth authentication URL
@@ -90,8 +103,8 @@ public class TwitterContext extends BaseContext {
      * @return this context
      */
      public TwitterContext setAccessToken(AccessToken token) {
-    	 this.accessToken = token;
-    	 return this;
+         this.accessToken = token;
+         return this;
      }
      
     /** Set the request token.
@@ -101,8 +114,8 @@ public class TwitterContext extends BaseContext {
      * @return this context
      */
      public TwitterContext setRequestToken(RequestToken token) {
-    	 this.requestToken = token;
-    	 return this;
+         this.requestToken = token;
+         return this;
      }
      
      
@@ -114,7 +127,7 @@ public class TwitterContext extends BaseContext {
      *  @return this context
      */
      public TwitterContext setTwitter(@Nullable final Twitter twitter) {
-    	 this.twitter = twitter;
+         this.twitter = twitter;
          return this;
      }
      
@@ -126,7 +139,7 @@ public class TwitterContext extends BaseContext {
      * @return this context
      */
     public TwitterContext setTwitterIntegration(@Nullable final TwitterIntegration twitterIntegration) {
-    	this.twitterIntegration = twitterIntegration;
+        this.twitterIntegration = twitterIntegration;
         return this;
     }
 }
