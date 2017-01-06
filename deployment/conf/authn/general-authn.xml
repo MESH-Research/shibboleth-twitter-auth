@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+                           
+       default-init-method="initialize"
+       default-destroy-method="destroy">
+
+    <util:list id="shibboleth.AvailableAuthenticationFlows">
+
+        <bean id="authn/Twitter" parent="shibboleth.AuthenticationFlow"
+                p:passiveAuthenticationSupported="false"
+                p:forcedAuthenticationSupported="false" />
+
+    </util:list>
+
+    
+    <util:map id="shibboleth.AuthenticationPrincipalWeightMap">
+        <entry>
+            <key>
+                <bean parent="shibboleth.SAML2AuthnContextClassRef"
+                    c:classRef="urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport" />
+            </key>
+            <value>1</value>
+        </entry>
+    </util:map>
+
+    <bean id="shibboleth.PrincipalSerializers" parent="shibboleth.DefaultPrincipalSerializers">
+        <property name="sourceList">
+            <list merge="true">
+                <bean class="org.mla.cbox.shibboleth.idp.authn.impl.TwitterIdPrincipalSerializer" />
+            </list>
+        </property>
+    </bean>
+
+</beans>
